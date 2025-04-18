@@ -31,3 +31,4 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_line_read(char *all, char *buffer, int fd);
 
 #endif
+

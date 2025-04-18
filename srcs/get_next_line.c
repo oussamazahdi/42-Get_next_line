@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ozahdi <ozahdi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 13:38:37 by ozahdi            #+#    #+#             */
-/*   Updated: 2024/01/04 08:59:39 by ozahdi           ###   ########.fr       */
+/*   Updated: 2024/01/04 08:59:14 by ozahdi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "../includes/get_next_line.h"
 
 int	ft_index(char *all)
 {
@@ -52,24 +52,24 @@ char	*ft_line_read(char *all, char *buffer, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*all[OPEN_MAX];
+	static char	*all;
 	char		*buffer;
 	char		*dst;
 	int			a;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX || fd > OPEN_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
 		return (NULL);
 	buffer = malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
-	all[fd] = ft_line_read(all[fd], buffer, fd);
-	if (!all[fd])
+	all = ft_line_read(all, buffer, fd);
+	if (!all)
 		return (NULL);
-	a = ft_index(all[fd]);
+	a = ft_index(all);
 	if (a < 0)
-		a = ft_strlen(all[fd]);
-	dst = ft_before(all[fd], a + 1);
-	all[fd] = ft_after(all[fd], a);
+		a = ft_strlen(all);
+	dst = ft_before(all, a + 1);
+	all = ft_after(all, a);
 	free (buffer);
 	return (dst);
 }
